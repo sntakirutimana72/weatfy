@@ -6,6 +6,7 @@
   "author": "Steven Nuru",
   "license": "SYAI",
   "dependencies": {
+    "node-fetch": "^2.6.1",
     "whatwg-fetch": "1.0.0"
   },
   "devDependencies": {

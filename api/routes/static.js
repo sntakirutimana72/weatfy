@@ -1,7 +1,7 @@
 import serveStatic from '../handlers/static';
 import express from 'express'
 
-router = express.Router()
+const router = express.Router()
 
 router.get(/css|js|images/, serveStatic)
 

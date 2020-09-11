@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="eng">
+
+<head>
+  <meta charset="utf-8">
+  <title>Dashboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" type="text/css" href="static/css/dashboard.css" />
+</head>
+
+<body>
+  <img id="cover" src="static/images/background.png" alt="cover-image" />
+
+  <div class="headbar-menu squeeze">
+    <ul>
+      <li class="h-menu-el logo__name">
+        <a>
+          <img id="app-logo" src="static/images/logo.png" alt="logo" title="home" />
+          <span id="app-name">SylvWeather</span>
+        </a>
+      </li>
+
+      <li class="h-menu-el search-box">
+        <input type="text" id="key-field" placeholder="Search for a city">
+        <div id="search" class="button">
+          <img src="static/images/search.png" alt="search-logo" title="search" />
+        </div>
+      </li>
+    </ul>
+  </div>
+
+  <div class="data-board squeeze">
+    <ul class="data-header">
+      <li id="city-detail">London, England</li>
+      <li class="city-info-option">
+        <img class="button" src="static/images/home.png" title="set as home" />
+      </li>
+      <li class="city-info-option">
+        <img class="button" src="static/images/favorites.png" title="add to favorites" />
+      </li>
+      <li class="city-info-option">
+        <img class="button" src="static/images/alerts.png" title="set an alert" />
+      </li>
+    </ul>
+
+    <div class="weather-details">
+      <div class="current-city-temp">
+        <img src="static/images/cloudy.png" title="Weather is cloudy" />
+        <span class="c-w-s-det">15C Cloudy</span>
+      </div>
+
+      <div>
+        <div class="day-details current-day">
+          <label class="w-aspect-detail">Friday</label>
+          <div>
+            <div class="w-aspect-detail">
+              <span>Wind:</span>
+              <span>W 13 km/h</span>
+            </div>
+            <div class="w-aspect-detail">
+              <span>Visibility:</span>
+              <span>Very good</span>
+            </div>
+            <div class="w-aspect-detail">
+              <span>Humidity:</span>
+              <span>70%</span>
+            </div>
+            <div class="w-aspect-detail">
+              <span>Pressure:</span>
+              <span>1016 mb Failing</span>
+            </div>
+            <div class="w-aspect-detail">
+              <span>Daylight:</span>
+              <span>05:21 to 20:32 BST</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="other-days">
+          <div class="ot-day-details">
+            <div>
+              <label class="w-aspect-detail">Saturday</label>
+              <div class="w-aspect-detail">
+                <span>High:</span>
+                <span>19C</span>
+              </div>
+              <div class="w-aspect-detail">
+                <span>Low:</span>
+                <span>9C</span>
+              </div>
+            </div>
+            <img src="static/images/cloudy.png" alt="weather-logo" />
+          </div>
+          <div class="ot-day-details">
+            <div>
+              <label class="w-aspect-detail">Sunday</label>
+              <div class="w-aspect-detail">
+                <span>High:</span>
+                <span>19C</span>
+              </div>
+              <div class="w-aspect-detail">
+                <span>Low:</span>
+                <span>9C</span>
+              </div>
+            </div>
+            <img src="static/images/cloudy.png" alt="weather-logo" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</body>
+
+</html>

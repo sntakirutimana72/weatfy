@@ -50,7 +50,7 @@ export default class {
 
   static getStats(cityName) {
     return new Promise((resolve, reject) => {
-      fetch(`${env.WEATHER_API_URL}${cityName}`)
+      fetch(`${env.WEATHER_API_URL}${cityName}`, { mode: 'cors' })
         .then(resp => resp.json()).then(resolve).catch(() => { reject() })
     });
   }

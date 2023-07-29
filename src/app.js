@@ -34,7 +34,7 @@ const showStats = (cityName) => {
     const radical = iconSlices.slice(iconSlices.length - 2).join('/');
     const temperatureImage = $select('#temperature img');
 
-    $attrib(temperatureImage, 'src', `./assets/icons/${radical}`);
+    $attrib(temperatureImage, 'src', `src/assets/icons/${radical}`);
     $class(temperatureImage, 'hidden');
 
     $text($select('.home-head h3'), `${name} weather stats`);

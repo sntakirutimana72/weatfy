@@ -1,5 +1,5 @@
-@import './assets/css/base.css';
-@import './assets/css/responsiveness.css';
+@import './src/assets/css/base.css';
+@import './src/assets/css/responsiveness.css';
 
 #app {
   height: 100vh;

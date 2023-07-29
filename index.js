@@ -1,3 +1,3 @@
-import { onStartup } from "./app.js";
+import { onStartup } from "./src/app.js";
 
 document.addEventListener('DOMContentLoaded', onStartup);

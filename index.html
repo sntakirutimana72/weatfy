@@ -36,10 +36,35 @@
       <!-- <div id="crumb-nav">
         <button type="button">Home</button>
       </div> -->
-      <div id="app-body">
+      <div id="app-body" class="flex">
         <div id="content-nav" class="screen">
-          <div id="countries" class="nav-screen current-nav-screen"></div>
-          <div id="cities" class="nav-screen"></div>
+          <div id="countries" class="nav-screen current-nav-screen">
+            <div class="flex flex-col">
+              <div class="flex items-center search-box">
+                <input type="text" id="search-cou" placeholder="Keyword" />
+                <span class="material-symbols-rounded icon">
+                  search
+                </span>
+              </div>
+              <div class="countries-container">
+                <div class="flex flex-col countries-list"></div>
+              </div>
+            </div>
+          </div>
+
+          <div id="cities" class="nav-screen">
+            <div class="flex flex-col">
+              <div class="flex items-center search-box">
+                <input type="text" id="search-cou" placeholder="Keyword" />
+                <span class="material-symbols-rounded icon">
+                  search
+                </span>
+              </div>
+              <div class="cities-container">
+                <div class="flex flex-col cities-list"></div>
+              </div>
+            </div>
+          </div>
         </div>
         <div id="home" class="screen current-screen">
           <section class="home-head">

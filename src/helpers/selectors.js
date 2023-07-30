@@ -7,7 +7,7 @@
  */
 export const $attrib = (element, name, value) => {
   if (typeof element === 'string') element = $select(element);
-  if (!value) return element.getAttribute(name);
+  if (typeof value !== 'string') return element.getAttribute(name);
   element.setAttribute(name, value);
 };
 
@@ -34,7 +34,7 @@ export const $selectAll = (identifer) => {
  * @return {String?}
  */
 export const $text = (element, value) => {
-  if (!value) {
+  if (typeof value !== 'string') {
     return element.textContent;
   }
 
@@ -67,10 +67,10 @@ export const $create = (tagName) => {
                                   else we retrieve content from element.
  * @returns
  */
-export const $html = (element, htmlContent) => {
-  if (htmlContent === null) {
+export const $html = (element, html) => {
+  if (typeof html !== 'string') {
     return element.innerHTML;
   }
 
-  element.innerHTML = htmlContent;
+  element.innerHTML = html;
 };

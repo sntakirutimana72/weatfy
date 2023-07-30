@@ -43,14 +43,91 @@
     overflow-y: auto;
 
     & #app-body {
-      & .screen {
+      height: 100%;
+
+      & .screen, & .nav-screen {
         display: none;
         transform: scale(0);
-        transition: transform 400ms ease-in-out;
 
-        &.current-screen {
-          display: block;
+        &.current-screen,
+        &.current-nav-screen {
+          flex: 1;
+          display: initial;
           transform: scale(1);
+        }
+      }
+
+      & #content-nav {
+        & #countries,
+        & #cities {
+          & > div {
+            height: 100%;
+            margin: 0 10px;
+            overflow: hidden;
+
+            & .search-box {
+              position: relative;
+              margin: 40px 0;
+
+              & input {
+                flex: 1;
+                font-size: large;
+                border: 2px solid transparent;
+                padding: 14px 15px;
+                border-radius: 12px;
+                background: white;
+                box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+
+                &::placeholder {
+                  opacity: 0.6;
+                }
+
+                &:focus {
+                  outline: none;
+                  border-color: var(--blueish);
+                }
+              }
+
+              & .icon {
+                position: absolute;
+                right: 3px;
+                text-align: center;
+                height: calc(100% - 6px);
+                border-radius: 12px;
+                padding: 10px 11px;
+                color: white;
+                background-color: var(--blueish);
+              }
+            }
+
+            & .countries-container,
+            & .cities-container {
+              overflow-y: auto;
+              margin-bottom: 10px;
+
+              & .countries-list,
+              & .cities-list {
+                gap: 10px;
+
+                & .country-item,
+                & .city-item {
+                  text-align: left;
+                  font-size: large;
+                  transition-property: font-size, padding;
+                  transition-duration: 200ms;
+                  transition-delay: 0s;
+                  transition-timing-function: ease-in-out;
+
+                  &:focus, &.active {
+                    font-size: x-large;
+                    padding: 5px 0;
+                    padding-left: 15px;
+                    color: var(--blueish);
+                  }
+                }
+              }
+            }
+          }
         }
       }
 

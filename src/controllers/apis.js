@@ -9,17 +9,18 @@ export default class {
    */
   static getCountries() {
     return new Promise(resolve => {
-      const { countries: cList } = storage;
+      storage.cities = [];
+      storage.selectedCountry = '';
 
-      if (isEmpty(cList)) {
+      if (isEmpty(storage.countries)) {
         fetch(env.COUNTRIES_SNOW_API_URL)
           .then(resp => resp.json()).then(({ data }) => {
-            storage.countries = data.map(({ iso2, name }) => ({ key: iso2, name }));
+            storage.countries = data.map(({ name }) => name);
             resolve(storage.countries);
           })
-          .catch(() => { resolve(cList) });
+          .catch(() => { reject() });
       } else {
-        resolve(cList)
+        resolve(storage.countries)
       }
     });
   }
@@ -30,27 +31,28 @@ export default class {
    * @returns { Promise<string[]> }
    */
   static getCities(country) {
-    return new Promise(resolve => {
-      if (country === storage.selectedCountry) {
-        resolve(storage.cities)
-      } else {
-        fetch(env.RAPID_API_CITIES_URL)
-          .then(resp => resp.json() ).then(cities => {
-            storage.selectedCountry = country;
-            storage.cities = cities;
-            resolve(cities);
-          })
-          .catch(() => {
-            storage.selectedCountry = null;
-            resolve([]);
-          });
-      }
+    storage.cities = [];
+    storage.selectedCountry = country;
+
+    return new Promise((resolve, reject) => {
+      fetch(env.CITIES_SNOW_API_URL, {
+        method: 'POST',
+        body: JSON.stringify({ country }),
+        headers: {
+          'Content-Type': 'application/json',
+        }
+      })
+        .then(resp => resp.json()).then(({ data }) => {
+          storage.cities = data;
+          resolve(data);
+        })
+        .catch((exc) => { reject() });
     });
   }
 
   static getStats(cityName) {
     return new Promise((resolve, reject) => {
-      fetch(`${env.WEATHER_API_URL}${cityName}`, { mode: 'cors' })
+      fetch(`${env.WEATHER_API_URL}${cityName}`)
         .then(resp => resp.json()).then(resolve).catch(() => { reject() })
     });
   }

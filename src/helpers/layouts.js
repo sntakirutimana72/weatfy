@@ -1,20 +1,16 @@
-export const cityLayout = (ref, name) => (
-  `
-    <button type="button" class="city-item" data-key="${name}" data-ref="${ref}">
-      ${name}
-    </button>
-  `
-);
+import { $attrib, $class, $create, $text } from "./selectors.js";
 
-export const countryLayout = (key, name) => (
-  `
-    <button type="button" class="country-item" data-key="${key}">
-      ${name}
-    </button>
-  `
-);
+export const countryOrCityLayout = (name, className) => {
+  const element = $create('button');
+  $class(element, className);
+  $attrib(element, 'type', 'button');
+  $attrib(element, 'data-key', name);
+  $text(element, name);
 
-export const cityStatLayout = ({ name, stats }) => (
+  return element;
+};
+
+export const cityStatLayout = (name, stats) => (
   `
     <div class="screen city-stats"></div>
   `

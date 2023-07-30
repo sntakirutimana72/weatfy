@@ -12,6 +12,11 @@ import {
 } from "./helpers/selectors.js";
 import storage from "./helpers/storage.js";
 
+const wrapUpCountrySelection = () => {
+  switchTo('cities', 'current-nav-screen');
+  toggleCrumb('content-nav');
+};
+
 /**
  *
  * @param { HTMLElement } element
@@ -19,6 +24,45 @@ import storage from "./helpers/storage.js";
 const toggleNavItem = (element) => {
   $class($select('footer .nav-btn.active'), 'active');
   $class(element, 'active');
+};
+
+/**
+ *
+ * @param { HTMLElement } crumbLink
+ * @param { boolean|undefined } force
+ */
+const toggleCrumbActivation = (crumbLink, force) => {
+  if (crumbLink.tagName === 'BUTTON') {
+    $class(crumbLink, 'active', force);
+  }
+};
+
+const toggleCrumb = (target) => {
+  if (target === 'home') {
+    $selectAll('.crumb[data-target]').forEach(link => {
+      $class(link, 'hidden', true);
+      toggleCrumbActivation(link, false);
+    });
+  } else {
+    const newTarget = $select(`#${target} .current-nav-screen`).id;
+    if (newTarget === 'cities') {
+      $selectAll('.crumb[data-target]').forEach(link => {
+        const key = $attrib(link, 'data-target');
+        const force = key === newTarget ? true : false;
+        $class(link, 'hidden', false);
+        toggleCrumbActivation(link, force);
+      });
+    } else {
+      $selectAll(`.crumb[data-target="cities"]`).forEach(link => {
+        $class(link, 'hidden', true);
+        toggleCrumbActivation(link, false);
+      });
+      $selectAll(`.crumb[data-target="${newTarget}"]`).forEach(link => {
+        $class(link, 'hidden', false);
+        toggleCrumbActivation(link, true);
+      });
+    }
+  }
 };
 
 /**
@@ -147,30 +191,41 @@ function handleCitySelection() {
   const previous = $select('.city-item.active');
   if (previous) $class(previous, 'active');
 
-  $class(this, 'active', true);
+  $class(this, 'active');
   switchTo('home', 'current-screen');
   toggleNavItem($select('footer .nav-btn[data-target="home"]'));
+  toggleCrumb('home');
   showStats($attrib(this, 'data-key'));
 }
 
 function handleCountrySelection() {
   const previous = $select('.country-item.active');
   if (previous) {
-    if (previous === this && storage.cities) return;
+    if (previous === this && storage.cities) return wrapUpCountrySelection();
+
     $class(previous, 'active');
   }
   $class(this, 'active');
-  switchTo('cities', 'current-nav-screen');
+  wrapUpCountrySelection();
   populateCities($attrib(this, 'data-key'));
 }
 
 function onChangeScreen() {
+  const target = $attrib(this, 'data-target');
+
   toggleNavItem(this);
-  switchTo($attrib(this, 'data-target'), 'current-screen');
+  toggleCrumb(target);
+  switchTo(target, 'current-screen');
 }
 
 function handleFilterChange() {
   filterAny(this.value.toLowerCase(), $attrib(this, 'data-target'));
+}
+
+function handleCrumbLinkSelection() {
+  const target = $attrib(this, 'data-target');
+  switchTo(target, 'current-nav-screen');
+  toggleCrumb('content-nav')
 }
 
 export const onStartup = () => {
@@ -179,6 +234,9 @@ export const onStartup = () => {
   });
   $selectAll('.search-field').forEach(field => {
     field.addEventListener('input', handleFilterChange);
+  });
+  $selectAll('.crumb').forEach(crumbLink => {
+    crumbLink.addEventListener('click', handleCrumbLinkSelection);
   });
   loadBookmarks();
   populateCountries();

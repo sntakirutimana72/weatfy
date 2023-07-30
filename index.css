@@ -42,10 +42,50 @@
     flex: 1;
     overflow-y: auto;
 
-    & #app-body {
-      height: 100%;
+    & #crumb-nav {
+      gap: 2px;
+      padding: 0 5px;
 
-      & .screen, & .nav-screen {
+      & > div {
+        gap: 2px;
+
+        & .icon {
+          font-size: large;
+        }
+
+        & span {
+          padding-bottom: 1px;
+        }
+      }
+
+      & > .icon {
+        padding-top: 1px;
+      }
+
+      & [data-target] {
+        color: var(--darkish);
+        font-size: 14px;
+        transition-property: font-size, padding;
+        transition-duration: 100ms;
+        transition-delay: 0s;
+        transition-timing-function: ease-in-out;
+
+        &:focus,
+        &.active {
+          color: var(--blueish);
+          font-size: medium;
+        }
+      }
+
+
+    }
+
+    & #app-body {
+      flex: 1;
+      overflow: hidden;
+
+      & .screen,
+      & .nav-screen {
         display: none;
         transform: scale(0);
 
@@ -58,9 +98,10 @@
       }
 
       & #content-nav {
+
         & #countries,
         & #cities {
-          & > div {
+          &>div {
             height: 100%;
             margin: 0 10px;
             overflow: hidden;
@@ -118,7 +159,8 @@
                   transition-delay: 0s;
                   transition-timing-function: ease-in-out;
 
-                  &:focus, &.active {
+                  &:focus,
+                  &.active {
                     font-size: x-large;
                     padding: 5px 0;
                     padding-left: 15px;
@@ -149,7 +191,7 @@
         & .home-content {
           padding: 0 5px;
 
-          & > div {
+          &>div {
             gap: 15px;
           }
 

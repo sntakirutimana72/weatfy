@@ -32,10 +32,25 @@
       </nav>
     </header>
 
-    <main>
-      <!-- <div id="crumb-nav">
-        <button type="button">Home</button>
-      </div> -->
+    <main class="flex flex-col">
+      <div id="crumb-nav" class="flex items-center">
+        <div class="flex items-center">
+          <span class="material-symbols-outlined icon">home</span>
+          <span>Home</span>
+        </div>
+        <span class="material-symbols-outlined icon" data-target="countries">
+          navigate_next
+        </span>
+        <button type="button" class="flex items-center crumb hidden" data-target="countries">
+          All countries
+        </button>
+        <span class="material-symbols-outlined icon crumb hidden" data-target="cities">
+          navigate_next
+        </span>
+        <button type="button" class="flex items-center crumb hidden" data-target="cities">
+          All Cities
+        </button>
+      </div>
       <div id="app-body" class="flex">
         <div id="content-nav" class="screen">
           <div id="countries" class="nav-screen current-nav-screen">

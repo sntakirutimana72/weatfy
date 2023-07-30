@@ -3,6 +3,8 @@
 
 #app {
   height: 100vh;
+  max-width: 600px;
+  margin: 0 auto;
 
   & .nav-btn {
     padding: 7px 8px;

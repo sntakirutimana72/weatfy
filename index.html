@@ -51,10 +51,16 @@
           All Cities
         </button>
       </div>
+
       <div id="app-body" class="flex">
         <div id="content-nav" class="screen">
           <div id="countries" class="nav-screen current-nav-screen">
-            <div class="flex flex-col">
+            <div class="flex justify-center items-center status hidden">
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
+            <div class="flex flex-col countries-wrapper">
               <div class="flex items-center search-box">
                 <input type="text" class="search-field" data-target="country-item" placeholder="Keyword" />
                 <span class="material-symbols-rounded icon">
@@ -68,7 +74,12 @@
           </div>
 
           <div id="cities" class="nav-screen">
-            <div class="flex flex-col">
+            <div class="flex justify-center items-center status hidden">
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
+            <div class="flex flex-col cities-wrapper">
               <div class="flex items-center search-box">
                 <input type="text" class="search-field" data-target="city-item" placeholder="Keyword" />
                 <span class="material-symbols-rounded icon">
@@ -82,35 +93,42 @@
           </div>
         </div>
         <div id="home" class="screen current-screen">
-          <section class="home-head">
-            <h3></h3>
+          <div class="flex justify-center items-center status hidden">
             <span></span>
-          </section>
-          <div class="flex justify-between home-content">
-            <div class="flex flex-col">
-              <div id="temperature" class="flex flex-col">
-                <span></span>
-                <h5></h5>
-                <img src="" class="hidden" />
+            <span></span>
+            <span></span>
+          </div>
+          <div class="home-wrapper">
+            <section class="home-head">
+              <h3></h3>
+              <span></span>
+            </section>
+            <div class="flex justify-between home-content">
+              <div class="flex flex-col">
+                <div id="temperature" class="flex flex-col">
+                  <span></span>
+                  <h5></h5>
+                  <img src="">
+                </div>
+                <div id="humidity" class="stat-brick">
+                  <h5>Humidity</h5>
+                  <span></span>
+                </div>
               </div>
-              <div id="humidity" class="stat-brick">
-                <h5>Humidity</h5>
-                <span></span>
-              </div>
-            </div>
-            <div class="flex flex-col">
-              <div id="wind-degree" class="stat-brick">
-                <h5>Wind Degree</h5>
-                <span></span>
-              </div>
-              <div id="wind-dir" class="stat-brick">
-                <h5>Wind Direction</h5>
-                <span></span>
-              </div>
+              <div class="flex flex-col">
+                <div id="wind-degree" class="stat-brick">
+                  <h5>Wind Degree</h5>
+                  <span></span>
+                </div>
+                <div id="wind-dir" class="stat-brick">
+                  <h5>Wind Direction</h5>
+                  <span></span>
+                </div>
 
-              <div id="localtime" class="stat-brick">
-                <h5>Time</h5>
-                <span></span>
+                <div id="localtime" class="stat-brick">
+                  <h5>Time</h5>
+                  <span></span>
+                </div>
               </div>
             </div>
           </div>

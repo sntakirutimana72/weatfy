@@ -19,6 +19,15 @@ const wrapUpCountrySelection = () => {
 
 /**
  *
+ * @param { string } target
+ */
+const toggleStatus = (target) => {
+  $class($select(`#${target} .${target}-wrapper`), 'hidden');
+  $class($select(`#${target} .status`), 'hidden');
+};
+
+/**
+ *
  * @param { HTMLElement } element
  */
 const toggleNavItem = (element) => {
@@ -37,6 +46,10 @@ const toggleCrumbActivation = (crumbLink, force) => {
   }
 };
 
+/**
+ *
+ * @param { string } target
+ */
 const toggleCrumb = (target) => {
   if (target === 'home') {
     $selectAll('.crumb[data-target]').forEach(link => {
@@ -63,6 +76,16 @@ const toggleCrumb = (target) => {
       });
     }
   }
+};
+
+/**
+ *
+ * @param { string } target
+ * @param { Boolean? } flag
+ */
+const flagPopulating = (target, flag) => {
+  toggleStatus(target);
+  storage.loading = flag;
 };
 
 /**
@@ -119,8 +142,11 @@ const bindCountryOrCities = (container, list, meta) => {
 };
 
 const populateCountries = () => {
+  flagPopulating('countries', true);
+
   const container = $select('.countries-list');
   unbindCountryOrCities(container, handleCountrySelection);
+
   ApisController
     .getCountries()
     .then(countries => {
@@ -130,14 +156,21 @@ const populateCountries = () => {
         className: 'country-item',
       })
     })
-    .catch(() => { });
+    .catch(() => { })
+    .finally(() => { flagPopulating('countries') });
 };
 
+/**
+ *
+ * @param { string } country
+ */
 const populateCities = (country) => {
-  console.log(storage.selectedCountry, country)
   if (storage.selectedCountry !== country) {
+    flagPopulating('cities', true);
+
     const container = $select('.cities-list');
     unbindCountryOrCities(container, handleCitySelection);
+
     ApisController
       .getCities(country)
       .then(cities => {
@@ -147,13 +180,18 @@ const populateCities = (country) => {
           className: 'city-item',
         })
       })
-      .catch(() => { });
+      .catch(() => { })
+      .finally(() => { flagPopulating('cities') });
   }
 };
 
+/**
+ *
+ * @param { string } cityName
+ */
 const showStats = (cityName) => {
+  toggleStatus('home');
   ApisController.getStats(cityName).then(stats => {
-    console.log(stats);
     const {
       location: { name, region, country, localtime },
       current: {
@@ -165,21 +203,21 @@ const showStats = (cityName) => {
 
     const iconSlices = icon.split('/');
     const radical = iconSlices.slice(iconSlices.length - 2).join('/');
-    const temperatureImage = $select('#temperature img');
-
-    $attrib(temperatureImage, 'src', `src/assets/icons/${radical}`);
-    $class(temperatureImage, 'hidden');
 
     $text($select('.home-head h3'), `${name} weather stats`);
     $text($select('.home-head span'), `${region}, ${country}`);
+
     $text($select('#temperature h5'), text);
     $text($select('#temperature span'), `${temp_c}℃`);
-    $attrib($select('#temperature img'), 'src');
-    $text($select('#humidity span'), humidity);
-    $text($select('#wind-degree span'), wind_degree);
+    $attrib($select('#temperature img'), 'src', `./src/assets/icons/${radical}`);
+
+    $text($select('#humidity span'), humidity.toString());
+    $text($select('#wind-degree span'), wind_degree.toString());
     $text($select('#wind-dir span'), wind_dir);
     $text($select('#localtime span'), localtime);
-  }).catch(() => { });
+  })
+    .catch(() => { })
+    .finally(() => { toggleStatus('home') });
 };
 
 const loadBookmarks = () => {
@@ -188,6 +226,8 @@ const loadBookmarks = () => {
 };
 
 function handleCitySelection() {
+  if (storage.loading) return;
+
   const previous = $select('.city-item.active');
   if (previous) $class(previous, 'active');
 
@@ -199,6 +239,8 @@ function handleCitySelection() {
 }
 
 function handleCountrySelection() {
+  if (storage.loading) return;
+
   const previous = $select('.country-item.active');
   if (previous) {
     if (previous === this && storage.cities) return wrapUpCountrySelection();

@@ -68,3 +68,46 @@ button,
 .shadow {
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.16);
 }
+
+.status {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  gap: 5px;
+
+  & span {
+    background: var(--blueish);
+    border-radius: 10px;
+    height: 15px;
+    width: 10px;
+    animation-name: heartbeat;
+    animation-duration: 800ms;
+    animation-iteration-count: infinite;
+
+    &:nth-child(even) {
+      animation-delay: 250ms;
+    }
+
+    &:last-child {
+      animation-delay: 500ms;
+    }
+  }
+}
+
+@keyframes heartbeat {
+  from {
+    height: 15px;
+  }
+  to {
+    height: 30px;
+  }
+}
+
+@-webkit-keyframes heartbeat {
+  from {
+    height: 15px;
+  }
+  to {
+    height: 40px;
+  }
+}

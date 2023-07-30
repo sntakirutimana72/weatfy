@@ -11,3 +11,13 @@ export const countryOrCityLayout = (name, className) => {
 
   return element;
 };
+
+export const statusLayout = (
+  `
+    <div class="flex justify-center items-center status">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  `
+);

@@ -3,6 +3,7 @@ const storage = {
   cities: [],
   bookmarks: [],
   selectedCountry: null,
+  loading: null,
 };
 
 export default storage;

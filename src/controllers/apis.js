@@ -46,7 +46,7 @@ export default class {
           storage.cities = data;
           resolve(data);
         })
-        .catch((exc) => { reject() });
+        .catch(() => { reject() });
     });
   }
 

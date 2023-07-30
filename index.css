@@ -72,11 +72,10 @@
               & input {
                 flex: 1;
                 font-size: large;
-                border: 2px solid transparent;
+                border: 2px solid #a060e0;
                 padding: 14px 15px;
                 border-radius: 12px;
                 background: white;
-                box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
 
                 &::placeholder {
                   opacity: 0.6;
@@ -113,6 +112,7 @@
                 & .city-item {
                   text-align: left;
                   font-size: large;
+                  opacity: 0.75;
                   transition-property: font-size, padding;
                   transition-duration: 200ms;
                   transition-delay: 0s;

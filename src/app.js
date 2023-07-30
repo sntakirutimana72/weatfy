@@ -7,11 +7,35 @@ import {
   $select,
   $attrib,
   $class,
-  $html,
   $text,
   $selectAll,
 } from "./helpers/selectors.js";
 import storage from "./helpers/storage.js";
+
+/**
+ *
+ * @param { HTMLElement } element
+ */
+const toggleNavItem = (element) => {
+  $class($select('footer .nav-btn.active'), 'active');
+  $class(element, 'active');
+};
+
+/**
+ *
+ * @param { string } filter
+ * @param { string } targetClass
+ */
+const filterAny = (filter, targetClass) => {
+  if (!filter) {
+    $selectAll(`.${targetClass}.hidden`).forEach(element => { $class(element, 'hidden') })
+  } else {
+    $selectAll(`.${targetClass}:not([data-filter*="${filter}"])`)
+      .forEach(element => { $class(element, 'hidden', true) });
+    $selectAll(`.${targetClass}[data-filter*="${filter}"]`)
+      .forEach(element => { $class(element, 'hidden', false) });
+  }
+};
 
 /**
  *
@@ -85,6 +109,7 @@ const populateCities = (country) => {
 
 const showStats = (cityName) => {
   ApisController.getStats(cityName).then(stats => {
+    console.log(stats);
     const {
       location: { name, region, country, localtime },
       current: {
@@ -119,15 +144,20 @@ const loadBookmarks = () => {
 };
 
 function handleCitySelection() {
+  const previous = $select('.city-item.active');
+  if (previous) $class(previous, 'active');
+
+  $class(this, 'active', true);
   switchTo('home', 'current-screen');
-  showStats($attrib(this, 'data-key'))
+  toggleNavItem($select('footer .nav-btn[data-target="home"]'));
+  showStats($attrib(this, 'data-key'));
 }
 
 function handleCountrySelection() {
-  const previouslySelected = $select('.country-item.active');
-  if (previouslySelected) {
-    if (previouslySelected === this && storage.cities) return;
-    $class(previouslySelected, 'active');
+  const previous = $select('.country-item.active');
+  if (previous) {
+    if (previous === this && storage.cities) return;
+    $class(previous, 'active');
   }
   $class(this, 'active');
   switchTo('cities', 'current-nav-screen');
@@ -135,14 +165,20 @@ function handleCountrySelection() {
 }
 
 function onChangeScreen() {
-  $class($select('footer .nav-btn.active'), 'active');
-  $class(this, 'active');
+  toggleNavItem(this);
   switchTo($attrib(this, 'data-target'), 'current-screen');
+}
+
+function handleFilterChange() {
+  filterAny(this.value.toLowerCase(), $attrib(this, 'data-target'));
 }
 
 export const onStartup = () => {
   $selectAll('footer .nav-btn').forEach(navElement => {
     navElement.addEventListener('click', onChangeScreen);
+  });
+  $selectAll('.search-field').forEach(field => {
+    field.addEventListener('input', handleFilterChange);
   });
   loadBookmarks();
   populateCountries();

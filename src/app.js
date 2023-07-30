@@ -2,21 +2,85 @@ import {
   ApisController,
   BookmarkController,
 } from "./controllers/index.js";
-import { countryLayout } from "./helpers/layouts.js";
-import { $select, $attrib, $class, $html, $text, $selectAll } from "./helpers/selectors.js";
+import { countryOrCityLayout } from "./helpers/layouts.js";
+import {
+  $select,
+  $attrib,
+  $class,
+  $html,
+  $text,
+  $selectAll,
+} from "./helpers/selectors.js";
+import storage from "./helpers/storage.js";
 
 /**
  *
  * @param { string } name
+ * @param { string } targetClass
  */
-const switchTo = (name) => {
-  $class($select('.current-screen'), 'current-screen', false);
-  $class($select(`#${name}`), 'current-screen', true);
+const switchTo = (name, targetClass) => {
+  $class($select(`.${targetClass}`), targetClass, false);
+  $class($select(`#${name}`), targetClass, true);
 };
 
-const populateCountries = (countries) => {
-  const html = countries.map(({ key, name }) => countryLayout(key, name));
-  $html($select('#countries'), html.join(''));
+/**
+ *
+ * @param { HTMLElement } container
+ * @param { Function } listener
+ */
+const unbindCountryOrCities = (container, listener) => {
+  Array.from(container.children).forEach(child => {
+    child.removeEventListener('click', listener);
+    child.remove();
+  })
+};
+
+/**
+ *
+ * @param { HTMLElement } container
+ * @param { Object[] } data
+ * @param { Object } meta
+ */
+const bindCountryOrCities = (container, list, meta) => {
+  const { className, render, listener } = meta;
+  list.forEach(name => {
+    const element = render(name, className);
+    element.addEventListener('click', listener);
+    container.appendChild(element);
+  });
+};
+
+const populateCountries = () => {
+  const container = $select('.countries-list');
+  unbindCountryOrCities(container, handleCountrySelection);
+  ApisController
+    .getCountries()
+    .then(countries => {
+      bindCountryOrCities(container, countries, {
+        render: countryOrCityLayout,
+        listener: handleCountrySelection,
+        className: 'country-item',
+      })
+    })
+    .catch(() => { });
+};
+
+const populateCities = (country) => {
+  console.log(storage.selectedCountry, country)
+  if (storage.selectedCountry !== country) {
+    const container = $select('.cities-list');
+    unbindCountryOrCities(container, handleCitySelection);
+    ApisController
+      .getCities(country)
+      .then(cities => {
+        bindCountryOrCities(container, cities, {
+          render: countryOrCityLayout,
+          listener: handleCitySelection,
+          className: 'city-item',
+        })
+      })
+      .catch(() => { });
+  }
 };
 
 const showStats = (cityName) => {
@@ -46,22 +110,34 @@ const showStats = (cityName) => {
     $text($select('#wind-degree span'), wind_degree);
     $text($select('#wind-dir span'), wind_dir);
     $text($select('#localtime span'), localtime);
-  }).catch(() => {});
+  }).catch(() => { });
 };
 
 const loadBookmarks = () => {
-  const [ cityName, ] = BookmarkController.getBookmarks();
+  const [cityName,] = BookmarkController.getBookmarks();
   showStats(cityName);
 };
 
-function onSelectCity () {
+function handleCitySelection() {
+  switchTo('home', 'current-screen');
   showStats($attrib(this, 'data-key'))
+}
+
+function handleCountrySelection() {
+  const previouslySelected = $select('.country-item.active');
+  if (previouslySelected) {
+    if (previouslySelected === this && storage.cities) return;
+    $class(previouslySelected, 'active');
+  }
+  $class(this, 'active');
+  switchTo('cities', 'current-nav-screen');
+  populateCities($attrib(this, 'data-key'));
 }
 
 function onChangeScreen() {
   $class($select('footer .nav-btn.active'), 'active');
   $class(this, 'active');
-  switchTo($attrib(this, 'data-target'));
+  switchTo($attrib(this, 'data-target'), 'current-screen');
 }
 
 export const onStartup = () => {
@@ -69,4 +145,5 @@ export const onStartup = () => {
     navElement.addEventListener('click', onChangeScreen);
   });
   loadBookmarks();
+  populateCountries();
 };

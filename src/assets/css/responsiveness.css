@@ -1,0 +1,32 @@
+@media screen and (min-width:768px) {
+  #app {
+    padding: 0 5px;
+
+    & .crumb.hidden[data-target="countries"] {
+      display: initial !important;
+      color: var(--crumb-active-color) !important;
+      font-size: medium !important;
+    }
+
+    & #app-body {
+      gap: 70px;
+      justify-content: space-between !important;
+
+      & .screen {
+        max-width: 480px;
+        display: flex !important;
+        transform: scale(1) !important;
+      }
+    }
+
+    & footer {
+      display: none !important;
+    }
+  }
+}
+
+@media screen and (min-width:1080px) {
+  #app {
+    padding: 0 70px;
+  }
+}

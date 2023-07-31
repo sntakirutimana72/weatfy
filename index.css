@@ -3,8 +3,6 @@
 
 #app {
   height: 100vh;
-  max-width: 600px;
-  margin: 0 auto;
 
   & .nav-btn {
     padding: 7px 8px;
@@ -47,6 +45,7 @@
     & #crumb-nav {
       gap: 2px;
       padding: 0 5px;
+      margin-bottom: 30px;
 
       & > div {
         gap: 2px;
@@ -110,7 +109,7 @@
 
             & .search-box {
               position: relative;
-              margin: 40px 0;
+              margin-bottom: 40px;
 
               & input {
                 flex: 1;
@@ -146,7 +145,7 @@
             & .countries-container,
             & .cities-container {
               overflow-y: auto;
-              margin-bottom: 10px;
+              margin-bottom: 50px;
 
               & .countries-list,
               & .cities-list {
@@ -168,6 +167,7 @@
                     padding: 5px 0;
                     padding-left: 15px;
                     color: var(--item-active-color);
+                    outline: none;
                   }
                 }
               }
@@ -181,12 +181,12 @@
 
         & .home-wrapper {
           flex: 1;
+          padding-bottom: 20px;
           overflow-y: auto;
 
           & .home-head {
             & h3 {
               font-size: xx-large;
-              margin-top: 20px;
             }
 
             & span {
@@ -250,7 +250,7 @@
   }
 
   & footer {
-    padding: 10px 0;
+    margin: 10px 0;
 
     & nav {
       gap: 50px;

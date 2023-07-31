@@ -1,0 +1,14 @@
+{
+  "name": "weatfy",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:sntakirutimana72/weatfy.git",
+  "author": "Steve <sntakirutimana72@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "babel-eslint": "10.x",
+    "eslint": "7.x",
+    "eslint-config-airbnb-base": "14.x",
+    "eslint-plugin-import": "2.x"
+  }
+}

@@ -11,6 +11,7 @@ Weatfy is a weather app that allows users to check current weather stats of any 
 ![Tools](https://skillicons.dev/icons?i=html,js,git,github)
 
 - APIs
+- Browser localstorage API
 
 ## Screenshots
 

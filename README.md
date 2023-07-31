@@ -41,10 +41,10 @@ Weatfy is a weather app that allows users to check current weather stats of any 
 <table>
   <tr>
     <td>
-      <img src="./docs/screenshots/desktop-light.png" align="center" height="375" />
+      <img src="./docs/screenshots/desktop-light.png" align="center" width="996" />
     </td>
     <td>
-      <img src="./docs/screenshots/desktop~dark.png" align="center" height="375" />
+      <img src="./docs/screenshots/desktop~dark.png" align="center" width="996" />
     </td>
   </tr>
 </table>

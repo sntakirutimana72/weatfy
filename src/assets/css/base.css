@@ -19,6 +19,7 @@
   --stat-brick-bg: linear-gradient(90deg, white, #eee);
   --item-color: #3f3f3f;
   --item-active-color: blue;
+  --favorite-active: var(--blueish);
 }
 
 .dark {
@@ -33,11 +34,12 @@
   --field-focus-border-color: #888;
   --icon-weight: 500;
   --crumb-active-color: var(--reddish);
-  --stat-brick-color: #a0e8e8;
+  --stat-brick-color: #5ff;
   --stat-brick-text-color: var(--reddish);
   --stat-brick-bg: linear-gradient(90deg, #111, var(--light));
   --item-color: #e0e0e0;
   --item-active-color: cyan;
+  --favorite-active: yellow;
 }
 
 * {

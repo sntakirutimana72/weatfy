@@ -186,10 +186,24 @@
 
           & .home-head {
             & h3 {
+              gap: 10px;
               font-size: xx-large;
+
+              & button {
+                border-radius: 50%;
+                background: var(--stat-brick-bg);
+
+                & span {
+                  color: var(--darkish);
+
+                  &.active {
+                    color: var(--favorite-active);
+                  }
+                }
+              }
             }
 
-            & span {
+            & > span {
               display: block;
               font-style: italic;
               margin: 5px;

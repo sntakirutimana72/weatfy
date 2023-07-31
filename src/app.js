@@ -138,6 +138,7 @@ const populateCities = (country) => {
 
 const showStats = (city) => {
   toggleStatus('home');
+  BookmarkController.reset();
   ApisController.getStats(city).then((stats) => {
     const {
       location: {
@@ -153,8 +154,9 @@ const showStats = (city) => {
     const iconSlices = icon.split('/');
     const radical = iconSlices.slice(iconSlices.length - 2).join('/');
 
-    $text($select('.home-head h3'), `${name} weather stats`);
-    $text($select('.home-head span'), `${region}, ${country}`);
+    $text($select('.home-head h3 > span'), `${name} weather stats`);
+    $text($select('.home-head > span'), `${region}, ${country}`);
+    BookmarkController.flag(name, true);
 
     $text($select('#temperature h5'), text);
     $text($select('#temperature span'), `${temp_c}℃`);

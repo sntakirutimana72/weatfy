@@ -23,10 +23,10 @@
         <ul class="flex items-center">
           <li>
             <button type="button" id="theme-switch" class="nav-btn">
-              <span class="material-symbols-rounded icon">
+              <span class="material-symbols-rounded icon" title="Switch to dark mode">
                 dark_mode
               </span>
-              <span class="material-symbols-rounded icon hidden">
+              <span class="material-symbols-rounded icon hidden" title="Switch to light mode">
                 light_mode
               </span>
             </button>
@@ -103,7 +103,14 @@
           </div>
           <div class="home-wrapper">
             <section class="home-head">
-              <h3></h3>
+              <h3 class="flex items-center">
+                <span></span>
+                <button type="button" id="bookmarker" class="nav-btn shadow">
+                  <span class="material-symbols-rounded icon">
+                    star
+                  </span>
+                </button>
+              </h3>
               <span></span>
             </section>
             <div class="flex justify-between home-content">

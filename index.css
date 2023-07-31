@@ -13,7 +13,7 @@
 
   & .icon {
     font-size: 25px;
-    font-weight: 600;
+    font-weight: var(--icon-weight);
   }
 
   & header {
@@ -74,12 +74,10 @@
 
         &:focus,
         &.active {
-          color: var(--blueish);
+          color: var( --crumb-active-color);
           font-size: medium;
         }
       }
-
-
     }
 
     & #app-body {
@@ -106,7 +104,6 @@
 
           & .countries-wrapper,
           & .cities-wrapper {
-            /* height: 100%; */
             flex: 1;
             margin: 0 10px;
             overflow: hidden;
@@ -118,10 +115,11 @@
               & input {
                 flex: 1;
                 font-size: large;
-                border: 2px solid #a060e0;
+                border: 2px solid var(--field-border-color);
                 padding: 14px 15px;
                 border-radius: 12px;
-                background: white;
+                color: var(--field-color);
+                background: var(--field-bg);
 
                 &::placeholder {
                   opacity: 0.6;
@@ -129,7 +127,7 @@
 
                 &:focus {
                   outline: none;
-                  border-color: var(--blueish);
+                  border-color: var(--field-focus-border-color);
                 }
               }
 
@@ -140,7 +138,7 @@
                 height: calc(100% - 6px);
                 border-radius: 12px;
                 padding: 10px 11px;
-                color: white;
+                color: var(--white);
                 background-color: var(--blueish);
               }
             }
@@ -158,7 +156,7 @@
                 & .city-item {
                   text-align: left;
                   font-size: large;
-                  opacity: 0.75;
+                  color: var(--item-color);
                   transition-property: font-size, padding;
                   transition-duration: 200ms;
                   transition-delay: 0s;
@@ -169,7 +167,7 @@
                     font-size: x-large;
                     padding: 5px 0;
                     padding-left: 15px;
-                    color: var(--blueish);
+                    color: var(--item-active-color);
                   }
                 }
               }
@@ -183,6 +181,7 @@
 
         & .home-wrapper {
           flex: 1;
+          overflow-y: auto;
 
           & .home-head {
             & h3 {
@@ -208,19 +207,20 @@
             & .stat-brick {
               padding: 25px 15px;
               border-radius: 20px;
-              background-color: white;
-              box-shadow: 1px 2px 6px 2px rgba(0, 0, 255, 0.1);
+              background: var(--stat-brick-bg);
+              box-shadow: 1px 2px 6px 2px var(--shadow-color);
 
               & h5 {
                 font-size: medium;
                 font-weight: 700;
+                color: var(--stat-brick-color);
               }
 
               & span {
                 display: block;
                 margin-top: 10px;
                 font-size: x-large;
-                color: var(--blueish);
+                color: var(--stat-brick-text-color);
               }
             }
 
@@ -266,8 +266,9 @@
         }
 
         &.active {
-          background-color: white;
-          box-shadow: 1px 2px 4px 2px rgba(0, 0, 0, 0.15);
+          border: 1px solid var(--field-border-color);
+          background: var(--stat-brick-bg);
+          box-shadow: 0 2px 6px 2px var(--shadow-color);
         }
       }
     }

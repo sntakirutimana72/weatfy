@@ -2,8 +2,8 @@ const storage = {
   countries: [],
   cities: [],
   bookmarks: [],
-  selectedCountry: null,
-  loading: null,
+  current: undefined,
+  loading: undefined,
 };
 
 export default storage;

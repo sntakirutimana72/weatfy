@@ -1,141 +1,98 @@
-import {
-  ApisController,
-  BookmarkController,
-} from "./controllers/index.js";
-import { countryOrCityLayout } from "./helpers/layouts.js";
+import { ApisController, BookmarkController, ThemeController } from './controllers/index.js';
+import { BookmarkStore } from './stores/index.js';
+import { countryOrCityLayout } from './helpers/layouts.js';
 import {
   $select,
   $attrib,
   $class,
   $text,
   $selectAll,
-} from "./helpers/selectors.js";
-import storage from "./helpers/storage.js";
+} from './helpers/selectors.js';
+import storage from './helpers/storage.js';
 
-const wrapUpCountrySelection = () => {
-  switchTo('cities', 'current-nav-screen');
-  toggleCrumb('content-nav');
+const switchTo = (name, targetClass) => {
+  $class($select(`.${targetClass}`), targetClass, false);
+  $class($select(`#${name}`), targetClass, true);
 };
 
-/**
- *
- * @param { string } target
- */
 const toggleStatus = (target) => {
   $class($select(`#${target} .${target}-wrapper`), 'hidden');
   $class($select(`#${target} .status`), 'hidden');
 };
 
-/**
- *
- * @param { HTMLElement } element
- */
 const toggleNavItem = (element) => {
   $class($select('footer .nav-btn.active'), 'active');
   $class(element, 'active');
 };
 
-/**
- *
- * @param { HTMLElement } crumbLink
- * @param { boolean|undefined } force
- */
 const toggleCrumbActivation = (crumbLink, force) => {
   if (crumbLink.tagName === 'BUTTON') {
     $class(crumbLink, 'active', force);
   }
 };
 
-/**
- *
- * @param { string } target
- */
 const toggleCrumb = (target) => {
   if (target === 'home') {
-    $selectAll('.crumb[data-target]').forEach(link => {
-      $class(link, 'hidden', true);
-      toggleCrumbActivation(link, false);
+    $selectAll('.crumb[data-target]').forEach((crumbLink) => {
+      $class(crumbLink, 'hidden', true);
+      toggleCrumbActivation(crumbLink, false);
     });
   } else {
     const newTarget = $select(`#${target} .current-nav-screen`).id;
+
     if (newTarget === 'cities') {
-      $selectAll('.crumb[data-target]').forEach(link => {
-        const key = $attrib(link, 'data-target');
-        const force = key === newTarget ? true : false;
-        $class(link, 'hidden', false);
-        toggleCrumbActivation(link, force);
+      $selectAll('.crumb[data-target]').forEach((crumbLink) => {
+        const key = $attrib(crumbLink, 'data-target');
+        const force = key === newTarget;
+        $class(crumbLink, 'hidden', false);
+        toggleCrumbActivation(crumbLink, force);
       });
     } else {
-      $selectAll(`.crumb[data-target="cities"]`).forEach(link => {
-        $class(link, 'hidden', true);
-        toggleCrumbActivation(link, false);
+      $selectAll('.crumb[data-target="cities"]').forEach((crumbLink) => {
+        $class(crumbLink, 'hidden', true);
+        toggleCrumbActivation(crumbLink, false);
       });
-      $selectAll(`.crumb[data-target="${newTarget}"]`).forEach(link => {
-        $class(link, 'hidden', false);
-        toggleCrumbActivation(link, true);
+      $selectAll(`.crumb[data-target="${newTarget}"]`).forEach((crumbLink) => {
+        $class(crumbLink, 'hidden', false);
+        toggleCrumbActivation(crumbLink, true);
       });
     }
   }
 };
 
-/**
- *
- * @param { string } target
- * @param { Boolean? } flag
- */
 const flagPopulating = (target, flag) => {
   toggleStatus(target);
   storage.loading = flag;
 };
 
-/**
- *
- * @param { string } filter
- * @param { string } targetClass
- */
+const wrapUpCountrySelection = () => {
+  switchTo('cities', 'current-nav-screen');
+  toggleCrumb('content-nav');
+};
+
 const filterAny = (filter, targetClass) => {
   if (!filter) {
-    $selectAll(`.${targetClass}.hidden`).forEach(element => { $class(element, 'hidden') })
+    $selectAll(`.${targetClass}.hidden`).forEach((element) => { $class(element, 'hidden'); });
   } else {
     $selectAll(`.${targetClass}:not([data-filter*="${filter}"])`)
-      .forEach(element => { $class(element, 'hidden', true) });
+      .forEach((element) => { $class(element, 'hidden', true); });
     $selectAll(`.${targetClass}[data-filter*="${filter}"]`)
-      .forEach(element => { $class(element, 'hidden', false) });
+      .forEach((element) => { $class(element, 'hidden', false); });
   }
 };
 
-/**
- *
- * @param { string } name
- * @param { string } targetClass
- */
-const switchTo = (name, targetClass) => {
-  $class($select(`.${targetClass}`), targetClass, false);
-  $class($select(`#${name}`), targetClass, true);
-};
-
-/**
- *
- * @param { HTMLElement } container
- * @param { Function } listener
- */
 const unbindCountryOrCities = (container, listener) => {
-  Array.from(container.children).forEach(child => {
+  Array.from(container.children).forEach((child) => {
     child.removeEventListener('click', listener);
     child.remove();
-  })
+  });
 };
 
-/**
- *
- * @param { HTMLElement } container
- * @param { Object[] } data
- * @param { Object } meta
- */
 const bindCountryOrCities = (container, list, meta) => {
-  const { className, render, listener } = meta;
-  list.forEach(name => {
-    const element = render(name, className);
+  const { className, listener } = meta;
+
+  list.forEach((name) => {
+    const element = countryOrCityLayout(name, className);
     element.addEventListener('click', listener);
     container.appendChild(element);
   });
@@ -149,23 +106,18 @@ const populateCountries = () => {
 
   ApisController
     .getCountries()
-    .then(countries => {
+    .then((countries) => {
       bindCountryOrCities(container, countries, {
-        render: countryOrCityLayout,
         listener: handleCountrySelection,
         className: 'country-item',
-      })
+      });
     })
     .catch(() => { })
-    .finally(() => { flagPopulating('countries') });
+    .finally(() => { flagPopulating('countries'); });
 };
 
-/**
- *
- * @param { string } country
- */
 const populateCities = (country) => {
-  if (storage.selectedCountry !== country) {
+  if (storage.current !== country) {
     flagPopulating('cities', true);
 
     const container = $select('.cities-list');
@@ -173,27 +125,24 @@ const populateCities = (country) => {
 
     ApisController
       .getCities(country)
-      .then(cities => {
+      .then((cities) => {
         bindCountryOrCities(container, cities, {
-          render: countryOrCityLayout,
           listener: handleCitySelection,
           className: 'city-item',
-        })
+        });
       })
       .catch(() => { })
-      .finally(() => { flagPopulating('cities') });
+      .finally(() => { flagPopulating('cities'); });
   }
 };
 
-/**
- *
- * @param { string } cityName
- */
-const showStats = (cityName) => {
+const showStats = (city) => {
   toggleStatus('home');
-  ApisController.getStats(cityName).then(stats => {
+  ApisController.getStats(city).then((stats) => {
     const {
-      location: { name, region, country, localtime },
+      location: {
+        name, region, country, localtime,
+      },
       current: {
         temp_c, condition: { text, icon },
         wind_dir, wind_degree, humidity,
@@ -217,20 +166,24 @@ const showStats = (cityName) => {
     $text($select('#localtime span'), localtime);
   })
     .catch(() => { })
-    .finally(() => { toggleStatus('home') });
+    .finally(() => { toggleStatus('home'); });
 };
 
 const loadBookmarks = () => {
-  const [cityName,] = BookmarkController.getBookmarks();
-  showStats(cityName);
+  const bookmarks = BookmarkStore.fetch();
+  const city = bookmarks[0] || 'Kigali';
+
+  showStats(city);
 };
 
 function handleCitySelection() {
-  if (storage.loading) return;
-
+  if (storage.loading) {
+    return;
+  }
   const previous = $select('.city-item.active');
-  if (previous) $class(previous, 'active');
-
+  if (previous) {
+    $class(previous, 'active');
+  }
   $class(this, 'active');
   switchTo('home', 'current-screen');
   toggleNavItem($select('footer .nav-btn[data-target="home"]'));
@@ -239,12 +192,14 @@ function handleCitySelection() {
 }
 
 function handleCountrySelection() {
-  if (storage.loading) return;
-
+  if (storage.loading) {
+    return;
+  }
   const previous = $select('.country-item.active');
   if (previous) {
-    if (previous === this && storage.cities) return wrapUpCountrySelection();
-
+    if (previous === this && storage.cities) {
+      return wrapUpCountrySelection();
+    }
     $class(previous, 'active');
   }
   $class(this, 'active');
@@ -266,18 +221,22 @@ function handleFilterChange() {
 
 function handleCrumbLinkSelection() {
   const target = $attrib(this, 'data-target');
+
   switchTo(target, 'current-nav-screen');
-  toggleCrumb('content-nav')
+  toggleCrumb('content-nav');
 }
 
 export const onStartup = () => {
-  $selectAll('footer .nav-btn').forEach(navElement => {
-    navElement.addEventListener('click', onChangeScreen);
+  ThemeController.initiate();
+  BookmarkController.initiate();
+
+  $selectAll('footer .nav-btn').forEach((navLink) => {
+    navLink.addEventListener('click', onChangeScreen);
   });
-  $selectAll('.search-field').forEach(field => {
+  $selectAll('.search-field').forEach((field) => {
     field.addEventListener('input', handleFilterChange);
   });
-  $selectAll('.crumb').forEach(crumbLink => {
+  $selectAll('.crumb').forEach((crumbLink) => {
     crumbLink.addEventListener('click', handleCrumbLinkSelection);
   });
   loadBookmarks();

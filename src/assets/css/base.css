@@ -1,11 +1,43 @@
 @import url('https://fonts.googleapis.com/css2?family=Karla:wght@400;500;600;700;800&display=swap');
 
 :root {
-  --light: #f0f0f0;
+  --light: #f5f6fa;
   --darken: #1f1f1f;
   --darkish: #9f9f9f;
-  --reddish: #ee4f51;
   --blueish: #6d59eb;
+  --reddish: #ee4f51;
+  --shadow-color: rgba(0, 0, 0, 0.12);
+  --white: white;
+  --field-border-color: #e0e0e0;
+  --field-focus-border-color: blue;
+  --field-bg: white;
+  --field-color: var(--darken);
+  --icon-weight: 600;
+  --crumb-active-color: var(--blueish);
+  --stat-brick-color: var(--blueish);
+  --stat-brick-text-color: var(--darken);
+  --stat-brick-bg: linear-gradient(90deg, white, #eee);
+  --item-color: #3f3f3f;
+  --item-active-color: blue;
+}
+
+.dark {
+  --light: #1f1f1f;
+  --darken: #f5f6fa;
+  --blueish: #fafafa;
+  --shadow-color: #111;
+  --white: #222;
+  --field-border-color: #333;
+  --field-bg: #111;
+  --field-color: var(--darken);
+  --field-focus-border-color: #888;
+  --icon-weight: 500;
+  --crumb-active-color: var(--reddish);
+  --stat-brick-color: #a0e8e8;
+  --stat-brick-text-color: var(--reddish);
+  --stat-brick-bg: linear-gradient(90deg, #111, var(--light));
+  --item-color: #e0e0e0;
+  --item-active-color: cyan;
 }
 
 * {
@@ -66,7 +98,7 @@ button,
 }
 
 .shadow {
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.16);
+  box-shadow: 0 2px 5px 2px var(--shadow-color);
 }
 
 .status {

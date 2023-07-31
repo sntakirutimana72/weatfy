@@ -1,4 +1,6 @@
-import { $attrib, $class, $create, $text } from "./selectors.js";
+import {
+  $attrib, $class, $create, $text,
+} from './selectors.js';
 
 export const countryOrCityLayout = (name, className) => {
   const element = $create('button');

@@ -17,24 +17,24 @@ Weatfy is a weather app that allows users to check current weather stats of any 
 <table>
   <tr>
     <td>
-      <img src="./docs/screenshots/Home~light.png" align="center" height="375" />
+      <img src="./docs/screenshots/Home~light.png" align="center" width="375" />
     </td>
     <td>
-      <img src="./docs/screenshots/Countries-light.png" align="center" height="375" />
+      <img src="./docs/screenshots/Countries-light.png" align="center" width="375" />
     </td>
     <td>
-      <img src="./docs/screenshots/Cities~light.png" align="center" height="375" />
+      <img src="./docs/screenshots/Cities~light.png" align="center" width="375" />
     </td>
   </tr>
   <tr>
     <td>
-      <img src="./docs/screenshots/Home~dark.png" align="center" height="375" />
+      <img src="./docs/screenshots/Home~dark.png" align="center" width="375" />
     </td>
     <td>
-      <img src="./docs/screenshots/Countries-dark.png" align="center" height="375" />
+      <img src="./docs/screenshots/Countries-dark.png" align="center" width="375" />
     </td>
     <td>
-      <img src="./docs/screenshots/Cities~dark.png" align="center" height="375" />
+      <img src="./docs/screenshots/Cities~dark.png" align="center" width="375" />
     </td>
   </tr>
 </table>

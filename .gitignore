@@ -1,2 +1,5 @@
-node_modules
-vcscode
+/node_modules
+
+*.db
+
+.vscode

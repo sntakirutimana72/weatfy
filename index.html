@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="eng">
+
+<head>
+  <meta charset="utf-8">
+  <title>Weatfy App</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@48,400,0,0" />
+  <link rel="stylesheet" type="text/css" href="index.css" />
+</head>
+
+<body>
+  <div id="app" class="flex flex-col">
+    <header class="flex justify-between items-center">
+      <a href="index.html" title="Home" class="flex items-center app-logo">
+        <img src="logo.png" alt="Logo" />
+        <h1>Weatfy</h1>
+      </a>
+      <nav>
+        <ul class="flex items-center">
+          <li>
+            <button type="button" id="theme-switch" class="nav-btn">
+              <span class="material-symbols-rounded icon" title="Switch to dark mode">
+                dark_mode
+              </span>
+              <span class="material-symbols-rounded icon hidden" title="Switch to light mode">
+                light_mode
+              </span>
+            </button>
+          </li>
+        </ul>
+      </nav>
+    </header>
+
+    <main class="flex flex-col">
+      <div id="crumb-nav" class="flex items-center">
+        <div class="flex items-center">
+          <span class="material-symbols-outlined icon">home</span>
+          <span>Home</span>
+        </div>
+        <span class="material-symbols-outlined icon" data-target="countries">
+          navigate_next
+        </span>
+        <button type="button" class="flex items-center crumb hidden" data-target="countries">
+          All countries
+        </button>
+        <span class="material-symbols-outlined icon crumb hidden" data-target="cities">
+          navigate_next
+        </span>
+        <button type="button" class="flex items-center crumb hidden" data-target="cities">
+          All Cities
+        </button>
+      </div>
+
+      <div id="app-body" class="flex">
+        <div id="content-nav" class="screen">
+          <div id="countries" class="nav-screen current-nav-screen">
+            <div class="flex justify-center items-center status hidden">
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
+            <div class="flex flex-col countries-wrapper">
+              <div class="flex items-center search-box">
+                <input type="text" class="search-field" data-target="country-item" placeholder="Keyword" />
+                <span class="material-symbols-rounded icon">
+                  search
+                </span>
+              </div>
+              <div class="countries-container">
+                <div class="flex flex-col countries-list"></div>
+              </div>
+            </div>
+          </div>
+
+          <div id="cities" class="nav-screen">
+            <div class="flex justify-center items-center status hidden">
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
+            <div class="flex flex-col cities-wrapper">
+              <div class="flex items-center search-box">
+                <input type="text" class="search-field" data-target="city-item" placeholder="Keyword" />
+                <span class="material-symbols-rounded icon">
+                  search
+                </span>
+              </div>
+              <div class="cities-container">
+                <div class="flex flex-col cities-list"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div id="home" class="screen current-screen">
+          <div class="flex justify-center items-center status hidden">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+          <div class="home-wrapper">
+            <section class="home-head">
+              <h3 class="flex items-center">
+                <span></span>
+                <button type="button" id="bookmarker" class="nav-btn shadow">
+                  <span class="material-symbols-rounded icon">
+                    star
+                  </span>
+                </button>
+              </h3>
+              <span></span>
+            </section>
+            <div class="flex justify-between home-content">
+              <div class="flex flex-col">
+                <div id="temperature" class="flex flex-col">
+                  <span></span>
+                  <h5></h5>
+                  <img src="">
+                </div>
+                <div id="humidity" class="stat-brick">
+                  <h5>Humidity</h5>
+                  <span></span>
+                </div>
+              </div>
+              <div class="flex flex-col">
+                <div id="wind-degree" class="stat-brick">
+                  <h5>Wind Degree</h5>
+                  <span></span>
+                </div>
+                <div id="wind-dir" class="stat-brick">
+                  <h5>Wind Direction</h5>
+                  <span></span>
+                </div>
+
+                <div id="localtime" class="stat-brick">
+                  <h5>Time</h5>
+                  <span></span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <footer>
+      <nav class="flex items-center justify-center">
+        <button class="nav-btn active" type="button" data-target="home">
+          <span class="material-symbols-rounded icon">
+            bookmarks
+          </span>
+        </button>
+        <button class="nav-btn" type="button" data-target="content-nav">
+          <span class="material-symbols-rounded icon">
+            flag
+          </span>
+        </button>
+      </nav>
+    </footer>
+  </div>
+
+  <script type="module" src="index.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,147 @@
+@import url('https://fonts.googleapis.com/css2?family=Karla:wght@400;500;600;700;800&display=swap');
+
+:root {
+  --light: #f5f6fa;
+  --darken: #1f1f1f;
+  --darkish: #9f9f9f;
+  --blueish: #6d59eb;
+  --reddish: #ee4f51;
+  --shadow-color: rgba(0, 0, 0, 0.12);
+  --white: white;
+  --field-border-color: #e0e0e0;
+  --field-focus-border-color: blue;
+  --field-bg: white;
+  --field-color: var(--darken);
+  --icon-weight: 600;
+  --crumb-active-color: var(--blueish);
+  --stat-brick-color: var(--blueish);
+  --stat-brick-text-color: var(--darken);
+  --stat-brick-bg: linear-gradient(90deg, white, #eee);
+  --item-color: #3f3f3f;
+  --item-active-color: blue;
+  --favorite-active: var(--blueish);
+}
+
+.dark {
+  --light: #1f1f1f;
+  --darken: #f5f6fa;
+  --blueish: #fafafa;
+  --shadow-color: #111;
+  --white: #222;
+  --field-border-color: #333;
+  --field-bg: #111;
+  --field-color: var(--darken);
+  --field-focus-border-color: #888;
+  --icon-weight: 500;
+  --crumb-active-color: var(--reddish);
+  --stat-brick-color: #5ff;
+  --stat-brick-text-color: var(--reddish);
+  --stat-brick-bg: linear-gradient(90deg, #111, var(--light));
+  --item-color: #e0e0e0;
+  --item-active-color: cyan;
+  --favorite-active: yellow;
+}
+
+* {
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Karla', sans-serif;
+  background: var(--light);
+  color: var(--darkish);
+  padding: 0 15px;
+}
+
+a {
+  text-decoration: none;
+}
+
+ul {
+  padding: 0;
+  list-style-type: none;
+}
+
+button,
+.btn {
+  cursor: pointer;
+  background: none;
+  border: none;
+  border-radius: 10px;
+}
+
+.flex {
+  display: flex;
+}
+
+.flex-col {
+  flex-direction: column;
+}
+
+.wrap {
+  flex-wrap: wrap;
+}
+
+.items-center {
+  align-items: center;
+}
+
+.justify-center {
+  justify-content: center;
+}
+
+.justify-between {
+  justify-content: space-between;
+}
+
+.hidden {
+  display: none;
+}
+
+.shadow {
+  box-shadow: 0 2px 5px 2px var(--shadow-color);
+}
+
+.status {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  gap: 5px;
+
+  & span {
+    background: var(--blueish);
+    border-radius: 10px;
+    height: 15px;
+    width: 10px;
+    animation-name: heartbeat;
+    animation-duration: 800ms;
+    animation-iteration-count: infinite;
+
+    &:nth-child(even) {
+      animation-delay: 250ms;
+    }
+
+    &:last-child {
+      animation-delay: 500ms;
+    }
+  }
+}
+
+@keyframes heartbeat {
+  from {
+    height: 15px;
+  }
+  to {
+    height: 30px;
+  }
+}
+
+@-webkit-keyframes heartbeat {
+  from {
+    height: 15px;
+  }
+  to {
+    height: 40px;
+  }
+}

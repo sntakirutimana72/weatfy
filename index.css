@@ -1,0 +1,290 @@
+@import './src/assets/css/base.css';
+@import './src/assets/css/responsiveness.css';
+
+#app {
+  height: 100vh;
+
+  & .nav-btn {
+    padding: 7px 8px;
+    padding-bottom: 6px;
+  }
+
+  & .icon {
+    font-size: 25px;
+    font-weight: var(--icon-weight);
+  }
+
+  & header {
+    padding: 15px 0;
+
+    & * {
+      color: var(--blueish);
+    }
+
+    & .app-logo {
+      gap: 5px;
+
+      & img {
+        max-width: 100%;
+      }
+
+      & h1 {
+        font-size: x-large;
+      }
+    }
+
+    & ul {
+      gap: 20px;
+    }
+  }
+
+  & main {
+    flex: 1;
+    overflow-y: auto;
+
+    & #crumb-nav {
+      gap: 2px;
+      padding: 0 5px;
+      margin-bottom: 30px;
+
+      & > div {
+        gap: 2px;
+
+        & .icon {
+          font-size: large;
+        }
+
+        & span {
+          padding-bottom: 1px;
+        }
+      }
+
+      & > .icon {
+        padding-top: 1px;
+      }
+
+      & [data-target] {
+        color: var(--darkish);
+        font-size: 14px;
+        transition-property: font-size, padding;
+        transition-duration: 100ms;
+        transition-delay: 0s;
+        transition-timing-function: ease-in-out;
+
+        &:focus,
+        &.active {
+          color: var( --crumb-active-color);
+          font-size: medium;
+        }
+      }
+    }
+
+    & #app-body {
+      flex: 1;
+      overflow: hidden;
+
+      & .screen,
+      & .nav-screen {
+        flex: 1;
+        display: none;
+        transform: scale(0);
+
+        &.current-screen,
+        &.current-nav-screen {
+          display: flex;
+          transform: scale(1);
+        }
+      }
+
+      & #content-nav {
+        & #countries,
+        & #cities {
+          position: relative;
+
+          & .countries-wrapper,
+          & .cities-wrapper {
+            flex: 1;
+            margin: 0 10px;
+            overflow: hidden;
+
+            & .search-box {
+              position: relative;
+              margin-bottom: 40px;
+
+              & input {
+                flex: 1;
+                font-size: large;
+                border: 2px solid var(--field-border-color);
+                padding: 14px 15px;
+                border-radius: 12px;
+                color: var(--field-color);
+                background: var(--field-bg);
+
+                &::placeholder {
+                  opacity: 0.6;
+                }
+
+                &:focus {
+                  outline: none;
+                  border-color: var(--field-focus-border-color);
+                }
+              }
+
+              & .icon {
+                position: absolute;
+                right: 3px;
+                text-align: center;
+                height: calc(100% - 6px);
+                border-radius: 12px;
+                padding: 10px 11px;
+                color: var(--white);
+                background-color: var(--blueish);
+              }
+            }
+
+            & .countries-container,
+            & .cities-container {
+              overflow-y: auto;
+              margin-bottom: 50px;
+
+              & .countries-list,
+              & .cities-list {
+                gap: 10px;
+
+                & .country-item,
+                & .city-item {
+                  text-align: left;
+                  font-size: large;
+                  color: var(--item-color);
+                  transition-property: font-size, padding;
+                  transition-duration: 200ms;
+                  transition-delay: 0s;
+                  transition-timing-function: ease-in-out;
+
+                  &:focus,
+                  &.active {
+                    font-size: x-large;
+                    padding: 5px 0;
+                    padding-left: 15px;
+                    color: var(--item-active-color);
+                    outline: none;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+
+      & #home {
+        position: relative;
+
+        & .home-wrapper {
+          flex: 1;
+          padding-bottom: 20px;
+          overflow-y: auto;
+
+          & .home-head {
+            & h3 {
+              gap: 10px;
+              font-size: xx-large;
+
+              & button {
+                border-radius: 50%;
+                background: var(--stat-brick-bg);
+
+                & span {
+                  color: var(--darkish);
+
+                  &.active {
+                    color: var(--favorite-active);
+                  }
+                }
+              }
+            }
+
+            & > span {
+              display: block;
+              font-style: italic;
+              margin: 5px;
+              margin-bottom: 40px;
+            }
+          }
+
+          & .home-content {
+            padding: 0 5px;
+
+            &>div {
+              gap: 15px;
+            }
+
+            & .stat-brick {
+              padding: 25px 15px;
+              border-radius: 20px;
+              background: var(--stat-brick-bg);
+              box-shadow: 1px 2px 6px 2px var(--shadow-color);
+
+              & h5 {
+                font-size: medium;
+                font-weight: 700;
+                color: var(--stat-brick-color);
+              }
+
+              & span {
+                display: block;
+                margin-top: 10px;
+                font-size: x-large;
+                color: var(--stat-brick-text-color);
+              }
+            }
+
+            & #temperature {
+              color: var(--blueish);
+
+              & span {
+                font-weight: 600;
+                font-size: 48px;
+              }
+
+              & h5 {
+                font-size: medium;
+                margin-bottom: 10px;
+              }
+            }
+
+            & #localtime {
+              & span {
+                font-size: initial;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  & footer {
+    margin: 10px 0;
+
+    & nav {
+      gap: 50px;
+
+      & .nav-btn {
+        border-radius: 50%;
+        padding: 11px 12px;
+        padding-bottom: 10px;
+        color: var(--blueish);
+
+        &:focus {
+          border-radius: 50%;
+        }
+
+        &.active {
+          border: 1px solid var(--field-border-color);
+          background: var(--stat-brick-bg);
+          box-shadow: 0 2px 6px 2px var(--shadow-color);
+        }
+      }
+    }
+  }
+}
